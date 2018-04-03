@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # 切片操作符 slice
 L = ['Michael', 'Sarah', 'Tracy', 'Bob', 'Jack']
 

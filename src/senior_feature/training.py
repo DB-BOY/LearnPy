@@ -33,3 +33,44 @@ elif trim('    ') != '':
     print('测试失败!')
 else:
     print('测试成功!')
+    print()
+
+# 请使用迭代查找一个list中最小和最大值，并返回一个tuple：
+
+from collections import Iterable
+
+
+def findMinAndMax(L):
+    if not isinstance(L, Iterable):
+        print('类型错误')
+        return L
+    min = None
+    max = None
+
+    print(L)
+    print()
+    # 拦截空list
+    if len(L) == 0:
+        return (min, max)
+    # 非空操作
+    min = max = L[0]
+    # print(min, max)
+    for i in L:
+        if i <= min:
+            min = i
+        elif i >= max:
+            max = i
+            # print(min, max)
+    return (min, max)
+
+
+if findMinAndMax([]) != (None, None):
+    print('测试失败!')
+elif findMinAndMax([7]) != (7, 7):
+    print('测试失败!')
+elif findMinAndMax([7, 1]) != (1, 7):
+    print('测试失败!')
+elif findMinAndMax([7, 1, 3, 9, 5]) != (1, 9):
+    print('测试失败!')
+else:
+    print('测试成功!')

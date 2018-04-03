@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 # condition 条件判断
 

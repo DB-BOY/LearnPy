@@ -74,3 +74,15 @@ elif findMinAndMax([7, 1, 3, 9, 5]) != (1, 9):
     print('测试失败!')
 else:
     print('测试成功!')
+
+# 如果list中既包含字符串，又包含整数，由于非字符串类型没有lower()方法，所以列表生成式会报错：
+
+
+L = ['Hello', 'World', 18, 'Apple', None]
+
+L2 = [s.lower() for s in L if isinstance(s, str)]
+print(L2)
+if L2 == ['hello', 'world', 'apple']:
+    print('测试通过!')
+else:
+    print('测试失败!')

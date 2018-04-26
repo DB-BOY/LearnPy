@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 
+import hmac
+import itertools
+import random
 import re
 from datetime import datetime, timezone, timedelta
+from urllib import request
 
 
 # 假设你获取了用户输入的日期和时间如2015-1-21 9:01:30，
@@ -25,7 +29,6 @@ def to_timestamp(dt_str, tz_str):
 计算圆周率可以根据公式：
  利用Python提供的itertools模块，我们来计算这个序列的前N项和：
 '''
-
 
 # 测试:
 t1 = to_timestamp('2015-6-1 08:10:30', 'UTC+7:00')
@@ -167,7 +170,6 @@ assert not login('alice', 'Alice2008')
 print('ok')
 
 print('-----------hmac')
-import hmac, random
 
 
 def hmac_md5(key, s):
@@ -202,8 +204,6 @@ assert not login('bob', '123456')
 assert not login('alice', 'Alice2008')
 print('ok')
 
-import itertools
-
 # 计算圆周率可以根据公式：
 #
 # 利用Python提供的itertools模块，我们来计算这个序列的前N项和：
@@ -237,4 +237,29 @@ assert 3.04 < pi(10) < 3.05
 assert 3.13 < pi(100) < 3.14
 assert 3.140 < pi(1000) < 3.141
 assert 3.1414 < pi(10000) < 3.1415
+print('ok')
+
+print()
+print('---------urllib')
+
+import json
+
+
+def fetch_data(url):
+    req = request.Request(url)
+    req.add_header('User-Agent',
+                   'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+    with request.urlopen(req) as f:
+        # for k, v in f.getheaders():
+        # print('%s: %s' % (k, v))
+        s = f.read().decode('utf-8')
+        print('Data:', s)
+        return json.loads(s)
+
+
+# 测试
+URL = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20%3D%202151330&format=json'
+data = fetch_data(URL)
+print(data)
+assert data['query']['results']['channel']['location']['city'] == 'Beijing'
 print('ok')
